@@ -1,23 +1,23 @@
 
 <?php
 
-#Массив с параметрами, которые нужно передать методом POST к API системы
+#ДљЕ•Е„Е„ДЌГў Е„ ДЏЕ•Д‘Е•Д›ДєЕ€Д‘Е•Д›ДЌ, Д™Г®Е€Г®Д‘Е±Дє Г­ГіД‡Г­Г® ДЏДєД‘ДєГ¤Е•Е€Гј Д›ДєЕ€Г®Г¤Г®Д› POST Д™ API Е„ДЌЕ„Е€ДєД›Е±
 $user=array(
- 'USER_LOGIN'=>'bestcleaning770@gmail.com', #Ваш логин (электронная почта)
- 'USER_HASH'=>'09a4c0e29bd630d69e3b6273eca405edaa878f7d' #Хэш для доступа к API (смотрите в профиле пользователя)
+ 'USER_LOGIN'=>'bestcleaning770@gmail.com', #Г‚Е•Е™ Г«Г®ДѓДЌГ­ (ГЅГ«ДєД™Е€Д‘Г®Г­Г­Е•Л™ ДЏГ®Г·Е€Е•)
+ 'USER_HASH'=>'09a4c0e29bd630d69e3b6273eca405edaa878f7d' #ЕђГЅЕ™ Г¤Г«Л™ Г¤Г®Е„Е€ГіДЏЕ• Д™ API (Е„Д›Г®Е€Д‘ДЌЕ€Дє Гў ДЏД‘Г®ГґДЌГ«Дє ДЏГ®Г«ГјГ§Г®ГўЕ•Е€ДєГ«Л™)
 );
-$subdomain='bestcleaning770'; #Наш аккаунт - поддомен
+$subdomain='bestcleaning770'; #ГЌЕ•Е™ Е•Д™Д™Е•ГіГ­Е€ - ДЏГ®Г¤Г¤Г®Д›ДєГ­
 
-#Формируем ссылку для запроса
+#Г”Г®Д‘Д›ДЌД‘ГіДєД› Е„Е„Е±Г«Д™Гі Г¤Г«Л™ Г§Е•ДЏД‘Г®Е„Е•
 $auth_link='https://'.$subdomain.'.amocrm.ru/private/api/auth.php?type=json';
 $lead_link='https://'.$subdomain.'.amocrm.ru/api/v2/leads?status=22375147';
 $contact_link='https://'.$subdomain.'.amocrm.ru/api/v2/contacts/';
 $note_link='https://'.$subdomain.'.amocrm.ru/api/v2/notes';
-/* Нам необходимо инициировать запрос к серверу. Воспользуемся библиотекой cURL (поставляется в составе PHP). Вы также
-можете
-использовать и кроссплатформенную программу cURL, если вы не программируете на PHP. */
-	$auth_curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-#Устанавливаем необходимые опции для сеанса cURL
+/* ГЌЕ•Д› Г­ДєГ®ГЎЕ‘Г®Г¤ДЌД›Г® ДЌГ­ДЌГ¶ДЌДЌД‘Г®ГўЕ•Е€Гј Г§Е•ДЏД‘Г®Е„ Д™ Е„ДєД‘ГўДєД‘Гі. Г‚Г®Е„ДЏГ®Г«ГјГ§ГіДєД›Е„Л™ ГЎДЌГЎГ«ДЌГ®Е€ДєД™Г®Г© cURL (ДЏГ®Е„Е€Е•ГўГ«Л™ДєЕ€Е„Л™ Гў Е„Г®Е„Е€Е•ГўДє PHP). Г‚Е± Е€Е•Д™Д‡Дє
+Д›Г®Д‡ДєЕ€Дє
+ДЌЕ„ДЏГ®Г«ГјГ§Г®ГўЕ•Е€Гј ДЌ Д™Д‘Г®Е„Е„ДЏГ«Е•Е€ГґГ®Д‘Д›ДєГ­Г­ГіЕЈ ДЏД‘Г®ДѓД‘Е•Д›Д›Гі cURL, ДєЕ„Г«ДЌ ГўЕ± Г­Дє ДЏД‘Г®ДѓД‘Е•Д›Д›ДЌД‘ГіДєЕ€Дє Г­Е• PHP. */
+	$auth_curl=curl_init(); #ЕѓГ®Е‘Д‘Е•Г­Л™ДєД› Г¤ДєЕ„Д™Д‘ДЌДЏЕ€Г®Д‘ Е„ДєЕ•Г­Е„Е• cURL
+#Г“Е„Е€Е•Г­Е•ГўГ«ДЌГўЕ•ДєД› Г­ДєГ®ГЎЕ‘Г®Г¤ДЌД›Е±Дє Г®ДЏГ¶ДЌДЌ Г¤Г«Л™ Е„ДєЕ•Г­Е„Е• cURL
 	curl_setopt($auth_curl,CURLOPT_RETURNTRANSFER,true);
 	curl_setopt($auth_curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
 	curl_setopt($auth_curl,CURLOPT_URL,$auth_link);
@@ -30,12 +30,12 @@ $note_link='https://'.$subdomain.'.amocrm.ru/api/v2/notes';
 	curl_setopt($auth_curl,CURLOPT_SSL_VERIFYPEER,false);
 	curl_setopt($auth_curl,CURLOPT_SSL_VERIFYHOST,false);
 	#curl_setopt($auth_curl,CURLOPT_VERBOSE,true);
-	$auth=curl_exec($auth_curl); #Инициируем запрос к API и сохраняем ответ в переменную
-	$auth_code=curl_getinfo($auth_curl,CURLINFO_HTTP_CODE); #Получим HTTP-код ответа сервера	
-	curl_close($auth_curl); #Завершаем сеанс cURL AUTH	
+	$auth=curl_exec($auth_curl); #ДЊГ­ДЌГ¶ДЌДЌД‘ГіДєД› Г§Е•ДЏД‘Г®Е„ Д™ API ДЌ Е„Г®Е‘Д‘Е•Г­Л™ДєД› Г®Е€ГўДєЕ€ Гў ДЏДєД‘ДєД›ДєГ­Г­ГіЕЈ
+	$auth_code=curl_getinfo($auth_curl,CURLINFO_HTTP_CODE); #ДЋГ®Г«ГіГ·ДЌД› HTTP-Д™Г®Г¤ Г®Е€ГўДєЕ€Е• Е„ДєД‘ГўДєД‘Е•	
+	curl_close($auth_curl); #Г‡Е•ГўДєД‘Е™Е•ДєД› Е„ДєЕ•Г­Е„ cURL AUTH	
 				
 				$lead_curl=curl_init();
-				/* Устанавливаем необходимые опции для сеанса cURL */
+				/* Г“Е„Е€Е•Г­Е•ГўГ«ДЌГўЕ•ДєД› Г­ДєГ®ГЎЕ‘Г®Г¤ДЌД›Е±Дє Г®ДЏГ¶ДЌДЌ Г¤Г«Л™ Е„ДєЕ•Г­Е„Е• cURL */
 				curl_setopt($lead_curl,CURLOPT_RETURNTRANSFER,true);
 				curl_setopt($lead_curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
 				curl_setopt($lead_curl,CURLOPT_URL,$lead_link);
@@ -47,16 +47,16 @@ $note_link='https://'.$subdomain.'.amocrm.ru/api/v2/notes';
 				curl_setopt($lead_curl,CURLOPT_SSL_VERIFYPEER,false);
 				curl_setopt($lead_curl,CURLOPT_SSL_VERIFYHOST,false);
 				curl_setopt($lead_curl,CURLOPT_VERBOSE,true);
-				/* Вы также можете передать дополнительный HTTP-заголовок IF-MODIFIED-SINCE, в котором указывается дата в формате D, d M Y
-				H:i:s. При
-				передаче этого заголовка будут возвращены сделки, изменённые позже этой даты. */
+				/* Г‚Е± Е€Е•Д™Д‡Дє Д›Г®Д‡ДєЕ€Дє ДЏДєД‘ДєГ¤Е•Е€Гј Г¤Г®ДЏГ®Г«Г­ДЌЕ€ДєГ«ГјГ­Е±Г© HTTP-Г§Е•ДѓГ®Г«Г®ГўГ®Д™ IF-MODIFIED-SINCE, Гў Д™Г®Е€Г®Д‘Г®Д› ГіД™Е•Г§Е±ГўЕ•ДєЕ€Е„Л™ Г¤Е•Е€Е• Гў ГґГ®Д‘Д›Е•Е€Дє D, d M Y
+				H:i:s. ДЋД‘ДЌ
+				ДЏДєД‘ДєГ¤Е•Г·Дє ГЅЕ€Г®ДѓГ® Г§Е•ДѓГ®Г«Г®ГўД™Е• ГЎГіГ¤ГіЕ€ ГўГ®Г§ГўД‘Е•ЕЇДєГ­Е± Е„Г¤ДєГ«Д™ДЌ, ДЌГ§Д›ДєГ­ВёГ­Г­Е±Дє ДЏГ®Г§Д‡Дє ГЅЕ€Г®Г© Г¤Е•Е€Е±. */
 				curl_setopt($lead_curl,CURLOPT_HTTPHEADER,array('IF-MODIFIED-SINCE: Mon, 01 Aug 2013 07:07:23'));
-				/* Выполняем запрос к серверу. */
-				$lead_out=curl_exec($lead_curl); #Инициируем запрос к API и сохраняем ответ в переменную
+				/* Г‚Е±ДЏГ®Г«Г­Л™ДєД› Г§Е•ДЏД‘Г®Е„ Д™ Е„ДєД‘ГўДєД‘Гі. */
+				$lead_out=curl_exec($lead_curl); #ДЊГ­ДЌГ¶ДЌДЌД‘ГіДєД› Г§Е•ДЏД‘Г®Е„ Д™ API ДЌ Е„Г®Е‘Д‘Е•Г­Л™ДєД› Г®Е€ГўДєЕ€ Гў ДЏДєД‘ДєД›ДєГ­Г­ГіЕЈ
 				$lead_code=curl_getinfo($lead_curl,CURLINFO_HTTP_CODE);
 				curl_close($lead_curl); #CLOSE LEAD 
-							$contact_curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-							#Устанавливаем необходимые опции для сеанса cURL
+							$contact_curl=curl_init(); #ЕѓГ®Е‘Д‘Е•Г­Л™ДєД› Г¤ДєЕ„Д™Д‘ДЌДЏЕ€Г®Д‘ Е„ДєЕ•Г­Е„Е• cURL
+							#Г“Е„Е€Е•Г­Е•ГўГ«ДЌГўЕ•ДєД› Г­ДєГ®ГЎЕ‘Г®Г¤ДЌД›Е±Дє Г®ДЏГ¶ДЌДЌ Г¤Г«Л™ Е„ДєЕ•Г­Е„Е• cURL
 							curl_setopt($contact_curl,CURLOPT_RETURNTRANSFER,true);
 							curl_setopt($contact_curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
 							curl_setopt($contact_curl,CURLOPT_URL,$contact_link);
@@ -65,11 +65,11 @@ $note_link='https://'.$subdomain.'.amocrm.ru/api/v2/notes';
 							curl_setopt($contact_curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
 							curl_setopt($contact_curl,CURLOPT_SSL_VERIFYPEER,0);
 							curl_setopt($contact_curl,CURLOPT_SSL_VERIFYHOST,0);
-							$contact_out=curl_exec($contact_curl); #Инициируем запрос к API и сохраняем ответ в переменную
+							$contact_out=curl_exec($contact_curl); #ДЊГ­ДЌГ¶ДЌДЌД‘ГіДєД› Г§Е•ДЏД‘Г®Е„ Д™ API ДЌ Е„Г®Е‘Д‘Е•Г­Л™ДєД› Г®Е€ГўДєЕ€ Гў ДЏДєД‘ДєД›ДєГ­Г­ГіЕЈ
 							$contact_code=curl_getinfo($contact_curl,CURLINFO_HTTP_CODE);
 							curl_close($contact_curl);
 
-/* Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
+/* Е‡ДєДЏДєД‘Гј Д›Е± Д›Г®Д‡ДєД› Г®ГЎД‘Е•ГЎГ®Е€Е•Е€Гј Г®Е€ГўДєЕ€, ДЏГ®Г«ГіГ·ДєГ­Г­Е±Г© Г®Е€ Е„ДєД‘ГўДєД‘Е•. ГќЕ€Г® ДЏД‘ДЌД›ДєД‘. Г‚Е± Д›Г®Д‡ДєЕ€Дє Г®ГЎД‘Е•ГЎГ®Е€Е•Е€Гј Г¤Е•Г­Г­Е±Дє Е„ГўГ®ДЌД› Е„ДЏГ®Е„Г®ГЎГ®Д›. */
 $auth_code =(int)$auth_code;
 
 $errors=array(
@@ -84,25 +84,25 @@ $errors=array(
 );
 try
 {
-  #Если код ответа не равен 200 или 204 - возвращаем сообщение об ошибке
+  #Д№Е„Г«ДЌ Д™Г®Г¤ Г®Е€ГўДєЕ€Е• Г­Дє Д‘Е•ГўДєГ­ 200 ДЌГ«ДЌ 204 - ГўГ®Г§ГўД‘Е•ЕЇЕ•ДєД› Е„Г®Г®ГЎЕЇДєГ­ДЌДє Г®ГЎ Г®Е™ДЌГЎД™Дє
  if($auth_code!=200 && $auth_code!=204)
     throw new Exception(isset($errors[$auth_code]) ? $errors[$auth_code] : 'Undescribed error',$auth_code);
 }
 catch(Exception $E)
 {
-  die('Ошибка: '.$E->getMessage().PHP_EOL.'Код ошибки: '.$E->getCode());
+  die('ГЋЕ™ДЌГЎД™Е•: '.$E->getMessage().PHP_EOL.'ДГ®Г¤ Г®Е™ДЌГЎД™ДЌ: '.$E->getCode());
 }
 /*
- Данные получаем в формате JSON, поэтому, для получения читаемых данных,
- нам придётся перевести ответ в формат, понятный PHP
+ Г„Е•Г­Г­Е±Дє ДЏГ®Г«ГіГ·Е•ДєД› Гў ГґГ®Д‘Д›Е•Е€Дє JSON, ДЏГ®ГЅЕ€Г®Д›Гі, Г¤Г«Л™ ДЏГ®Г«ГіГ·ДєГ­ДЌЛ™ Г·ДЌЕ€Е•ДєД›Е±Е‘ Г¤Е•Г­Г­Е±Е‘,
+ Г­Е•Д› ДЏД‘ДЌГ¤ВёЕ€Е„Л™ ДЏДєД‘ДєГўДєЕ„Е€ДЌ Г®Е€ГўДєЕ€ Гў ГґГ®Д‘Д›Е•Е€, ДЏГ®Г­Л™Е€Г­Е±Г© PHP
  */
 /* 					$Auth_Response=json_decode($auth,true);
 					$Auth_Response=$Auth_Response['response'];
 
-					if(isset($Auth_Response['auth'])) #Флаг авторизации доступен в свойстве "auth"
-					 print 'Авторизация прошла успешно';
+					if(isset($Auth_Response['auth'])) #Г”Г«Е•Дѓ Е•ГўЕ€Г®Д‘ДЌГ§Е•Г¶ДЌДЌ Г¤Г®Е„Е€ГіДЏДєГ­ Гў Е„ГўГ®Г©Е„Е€ГўДє "auth"
+					 print 'Е”ГўЕ€Г®Д‘ДЌГ§Е•Г¶ДЌЛ™ ДЏД‘Г®Е™Г«Е• ГіЕ„ДЏДєЕ™Г­Г®';
 					 else
-					print 'Авторизация не удалась';
+					print 'Е”ГўЕ€Г®Д‘ДЌГ§Е•Г¶ДЌЛ™ Г­Дє ГіГ¤Е•Г«Е•Е„Гј';
  *//*===============================LEAD=======================*/
 
 $lead_code=(int)$lead_code;
@@ -119,18 +119,18 @@ $errors=array(
 );
 try
 {
-  /* Если код ответа не равен 200 или 204 - возвращаем сообщение об ошибке */
+  /* Д№Е„Г«ДЌ Д™Г®Г¤ Г®Е€ГўДєЕ€Е• Г­Дє Д‘Е•ГўДєГ­ 200 ДЌГ«ДЌ 204 - ГўГ®Г§ГўД‘Е•ЕЇЕ•ДєД› Е„Г®Г®ГЎЕЇДєГ­ДЌДє Г®ГЎ Г®Е™ДЌГЎД™Дє */
   if($lead_code!=200 && $lead_code!=204) {
     throw new Exception(isset($errors[$lead_code]) ? $errors[$lead_code] : 'Undescribed error',$lead_code);
   }
 }
 catch(Exception $E)
 {
-  die('Ошибка: '.$E->getMessage().PHP_EOL.'Код ошибки: '.$E->getCode());
+  die('ГЋЕ™ДЌГЎД™Е•: '.$E->getMessage().PHP_EOL.'ДГ®Г¤ Г®Е™ДЌГЎД™ДЌ: '.$E->getCode());
 }
 /*
- Данные получаем в формате JSON, поэтому, для получения читаемых данных,
- нам придётся перевести ответ в формат, понятный PHP
+ Г„Е•Г­Г­Е±Дє ДЏГ®Г«ГіГ·Е•ДєД› Гў ГґГ®Д‘Д›Е•Е€Дє JSON, ДЏГ®ГЅЕ€Г®Д›Гі, Г¤Г«Л™ ДЏГ®Г«ГіГ·ДєГ­ДЌЛ™ Г·ДЌЕ€Е•ДєД›Е±Е‘ Г¤Е•Г­Г­Е±Е‘,
+ Г­Е•Д› ДЏД‘ДЌГ¤ВёЕ€Е„Л™ ДЏДєД‘ДєГўДєЕ„Е€ДЌ Г®Е€ГўДєЕ€ Гў ГґГ®Д‘Д›Е•Е€, ДЏГ®Г­Л™Е€Г­Е±Г© PHP
 
  */
 
@@ -140,7 +140,7 @@ catch(Exception $E)
  $Lead_Response_Items=$Lead_Response['_embedded']['items']; #(0.1.2.3....10..z)
  for($i = 0; $i < count($Lead_Response_Items); ++$i) {
     $Prn = $Lead_Response_Items[$i]['id'] ;
-print_r ("сделка".$Prn."\n");
+print_r ("Е„Г¤ДєГ«Д™Е•".$Prn."\n");
 $c=$c+1;
 
 #=================NOTES==========================================================
@@ -158,8 +158,8 @@ $note_data = array (
 					);
 				
 
-					$note_curl=curl_init(); #Сохраняем дескриптор сеанса cURL
-					#Устанавливаем необходимые опции для сеанса cURL
+					$note_curl=curl_init(); #ЕѓГ®Е‘Д‘Е•Г­Л™ДєД› Г¤ДєЕ„Д™Д‘ДЌДЏЕ€Г®Д‘ Е„ДєЕ•Г­Е„Е• cURL
+					#Г“Е„Е€Е•Г­Е•ГўГ«ДЌГўЕ•ДєД› Г­ДєГ®ГЎЕ‘Г®Г¤ДЌД›Е±Дє Г®ДЏГ¶ДЌДЌ Г¤Г«Л™ Е„ДєЕ•Г­Е„Е• cURL
 					curl_setopt($note_curl,CURLOPT_RETURNTRANSFER,true);
 					curl_setopt($note_curl,CURLOPT_USERAGENT,'amoCRM-API-client/1.0');
 					curl_setopt($note_curl,CURLOPT_URL,$note_link);
@@ -171,9 +171,9 @@ $note_data = array (
 					curl_setopt($note_curl,CURLOPT_COOKIEJAR,dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
 					curl_setopt($note_curl,CURLOPT_SSL_VERIFYPEER,0);
 					curl_setopt($note_curl,CURLOPT_SSL_VERIFYHOST,0);
-					$note_out=curl_exec($note_curl); #Инициируем запрос к API и сохраняем ответ в переменную
+					$note_out=curl_exec($note_curl); #ДЊГ­ДЌГ¶ДЌДЌД‘ГіДєД› Г§Е•ДЏД‘Г®Е„ Д™ API ДЌ Е„Г®Е‘Д‘Е•Г­Л™ДєД› Г®Е€ГўДєЕ€ Гў ДЏДєД‘ДєД›ДєГ­Г­ГіЕЈ
 					$note_code=curl_getinfo($note_curl,CURLINFO_HTTP_CODE);
-					/* Теперь мы можем обработать ответ, полученный от сервера. Это пример. Вы можете обработать данные своим способом. */
+					/* Е‡ДєДЏДєД‘Гј Д›Е± Д›Г®Д‡ДєД› Г®ГЎД‘Е•ГЎГ®Е€Е•Е€Гј Г®Е€ГўДєЕ€, ДЏГ®Г«ГіГ·ДєГ­Г­Е±Г© Г®Е€ Е„ДєД‘ГўДєД‘Е•. ГќЕ€Г® ДЏД‘ДЌД›ДєД‘. Г‚Е± Д›Г®Д‡ДєЕ€Дє Г®ГЎД‘Е•ГЎГ®Е€Е•Е€Гј Г¤Е•Г­Г­Е±Дє Е„ГўГ®ДЌД› Е„ДЏГ®Е„Г®ГЎГ®Д›. */
 					$note_code=(int)$note_code;
 					$errors=array(
 					  301=>'Moved permanently',
@@ -187,13 +187,13 @@ $note_data = array (
 					);
 					try
 					{
-					  #Если код ответа не равен 200 или 204 - возвращаем сообщение об ошибке
+					  #Д№Е„Г«ДЌ Д™Г®Г¤ Г®Е€ГўДєЕ€Е• Г­Дє Д‘Е•ГўДєГ­ 200 ДЌГ«ДЌ 204 - ГўГ®Г§ГўД‘Е•ЕЇЕ•ДєД› Е„Г®Г®ГЎЕЇДєГ­ДЌДє Г®ГЎ Г®Е™ДЌГЎД™Дє
 					 if($note_code!=200 && $note_code!=204)
 						throw new Exception(isset($errors[$note_code]) ? $errors[$note_code] : 'Undescribed error',$note_code);
 					}
 					catch(Exception $E)
 					{
-					  die('Ошибка: '.$E->getMessage().PHP_EOL.'Код ошибки: '.$E->getCode());
+					  die('ГЋЕ™ДЌГЎД™Е•: '.$E->getMessage().PHP_EOL.'ДГ®Г¤ Г®Е™ДЌГЎД™ДЌ: '.$E->getCode());
 					}
  $note_Response=json_decode($note_out,true);
  print_r ($note_Response);
@@ -204,7 +204,7 @@ print_r ($note_data);
 
 
 	}	
-	print "всего сделок: ".$c;
+	print "ГўЕ„ДєДѓГ® Е„Г¤ДєГ«Г®Д™: ".$c;
  $Lead_Response_Contacts = $Lead_Response_Items['contacts']['id']; #(0.1.2.3....10..z)
  
 #print_r($Lead_Response);
@@ -226,13 +226,13 @@ $errors=array(
 );
 try
 {
-  #Если код ответа не равен 200 или 204 - возвращаем сообщение об ошибке
+  #Д№Е„Г«ДЌ Д™Г®Г¤ Г®Е€ГўДєЕ€Е• Г­Дє Д‘Е•ГўДєГ­ 200 ДЌГ«ДЌ 204 - ГўГ®Г§ГўД‘Е•ЕЇЕ•ДєД› Е„Г®Г®ГЎЕЇДєГ­ДЌДє Г®ГЎ Г®Е™ДЌГЎД™Дє
  if($contact_code!=200 && $contact_code!=204)
     throw new Exception(isset($errors[$contact_code]) ? $errors[$contact_code] : 'Undescribed error',$contact_code);
 }
 catch(Exception $E)
 {
-  die('Ошибка: '.$E->getMessage().PHP_EOL.'Код ошибки: '.$E->getCode());
+  die('ГЋЕ™ДЌГЎД™Е•: '.$E->getMessage().PHP_EOL.'ДГ®Г¤ Г®Е™ДЌГЎД™ДЌ: '.$E->getCode());
 }
 
 $Contact_Response=json_decode($contact_out,true);
