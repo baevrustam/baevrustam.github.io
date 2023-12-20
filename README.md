@@ -1,2 +1,2 @@
 baevrustam.github.io
-эта страница предназначена для хостинга моих проектов
+this page created for my personal projects
